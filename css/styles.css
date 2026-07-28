@@ -1,0 +1,93 @@
+:root {
+  --color-background: #ffffff;
+  --color-surface: #f7f4f1;
+  --color-text: #241f1c;
+  --color-text-muted: #685f5a;
+  --color-accent: #9a6f50;
+
+  --content-width: 72rem;
+  --page-padding: 1.25rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.container {
+  width: min(
+    calc(100% - (var(--page-padding) * 2)),
+    var(--content-width)
+  );
+  margin-inline: auto;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0.75rem 1rem;
+  background: var(--color-text);
+  color: var(--color-background);
+  transform: translateY(-120%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.site-header {
+  padding-block: 1rem;
+  border-bottom: 1px solid #e8e1dc;
+}
+
+.site-header__brand {
+  width: 13rem;
+  height: auto;
+}
+
+.hero {
+  min-height: 70vh;
+  display: grid;
+  align-items: center;
+  padding-block: 4rem;
+  background: var(--color-surface);
+}
+
+.hero__eyebrow {
+  margin-bottom: 0.75rem;
+  color: var(--color-accent);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  max-width: 18ch;
+  margin: 0;
+  font-size: clamp(2rem, 8vw, 4.5rem);
+  line-height: 1.05;
+}
+
+.hero p:last-child {
+  color: var(--color-text-muted);
+}

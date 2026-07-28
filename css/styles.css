@@ -184,6 +184,128 @@ a {
   display: none;
 }
 
+.treatments {
+  padding-block: 5rem;
+  background: var(--color-surface);
+}
+
+.section-heading {
+  max-width: 48rem;
+  margin-bottom: 2.5rem;
+}
+
+.section-heading__eyebrow {
+  margin: 0 0 0.75rem;
+  color: var(--color-brown);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-size: clamp(2rem, 8vw, 3.5rem);
+  line-height: 1.1;
+}
+
+.section-heading > p:last-child {
+  margin: 1.25rem 0 0;
+  color: var(--color-text-muted);
+}
+
+.treatments__grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.treatment-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  background: var(--color-background);
+}
+
+.treatment-card h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+
+.treatment-card__subtitle {
+  margin: 0.5rem 0 1.25rem;
+  color: var(--color-brown);
+  font-weight: 700;
+}
+
+.treatment-card__content > p:not(.treatment-card__subtitle) {
+  margin: 0 0 1rem;
+  color: var(--color-text-muted);
+}
+
+.treatment-card__content > p:last-child {
+  margin-bottom: 0;
+}
+
+.treatment-card__link {
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: center;
+  align-self: flex-start;
+  margin-top: auto;
+  padding-top: 1.5rem;
+  color: var(--color-brown);
+  font-weight: 700;
+  line-height: 1.4;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25rem;
+}
+
+.treatment-card__link:hover {
+  color: var(--color-text);
+}
+
+.treatment-card__link:focus-visible {
+  border-radius: 0.125rem;
+  outline: 3px solid var(--color-gold);
+  outline-offset: 4px;
+}
+
+.treatment-card__link span {
+  transition: transform 180ms ease;
+}
+
+.treatment-card__link:hover span {
+  transform: translateX(0.25rem);
+}
+
+.treatments__additional {
+  margin: 1.5rem 0 0;
+  color: var(--color-text-muted);
+}
+
+.treatments__closing {
+  margin-top: 2.5rem;
+  padding: 1.5rem;
+  border-left: 0.25rem solid var(--color-gold);
+  border-radius: 0.5rem;
+  background: var(--color-surface-alt);
+}
+
+.treatments__closing h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.25;
+}
+
+.treatments__closing p {
+  max-width: 42rem;
+  margin: 0.75rem 0 0;
+  color: var(--color-text-muted);
+}
+
 @media (min-width: 48rem) {
   :root {
     --page-padding: 2rem;
@@ -205,5 +327,39 @@ a {
   .hero__brand img {
     width: min(100%, 24rem);
     margin-inline: auto;
+  }
+
+  .treatments {
+    padding-block: 6rem;
+  }
+
+  .treatments__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .treatment-card:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 64rem) {
+  .treatments__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .treatment-card:last-child {
+    grid-column: auto;
+  }
+
+  .treatments__closing {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 2rem;
+    align-items: center;
+    padding: 2rem;
+  }
+
+  .treatments__closing .button {
+    margin-top: 0;
   }
 }

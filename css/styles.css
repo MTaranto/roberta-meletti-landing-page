@@ -571,6 +571,104 @@ a {
   margin-top: 1.5rem;
 }
 
+.faq {
+  padding-block: 5rem;
+  background: var(--color-background);
+}
+
+.faq__layout {
+  display: grid;
+  gap: 2.5rem;
+}
+
+.faq__heading {
+  margin-bottom: 0;
+}
+
+.faq__list {
+  border-top: 1px solid var(--color-border);
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.faq-item summary {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 1.25rem;
+  cursor: pointer;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.35;
+  list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary::after {
+  content: "+";
+  flex: 0 0 auto;
+  color: var(--color-gold);
+  font-size: 1.75rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.faq-item[open] summary::after {
+  content: "−";
+}
+
+.faq-item summary:hover {
+  color: var(--color-brown);
+}
+
+.faq-item summary:focus-visible {
+  border-radius: 0.25rem;
+  outline: 3px solid var(--color-gold);
+  outline-offset: 4px;
+}
+
+.faq-item__answer {
+  max-width: 44rem;
+  padding: 0 2.5rem 1.5rem 0;
+  color: var(--color-text-muted);
+}
+
+.faq-item__answer p {
+  margin: 0;
+}
+
+.faq-item__answer p + p {
+  margin-top: 1rem;
+}
+
+.faq__note {
+  margin: 2rem 0 0;
+  padding-left: 1rem;
+  border-left: 0.25rem solid var(--color-gold);
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+.faq__action {
+  margin-top: 2rem;
+}
+
+.faq__action p {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.faq__action .button {
+  margin-top: 1rem;
+}
+
 @media (min-width: 48rem) {
   :root {
     --page-padding: 2rem;
@@ -635,6 +733,10 @@ a {
   .testimonials__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .faq {
+    padding-block: 6rem;
+  }
 }
 
 @media (min-width: 64rem) {
@@ -676,5 +778,11 @@ a {
 
   .trust__closing .button {
     margin-top: 0;
+  }
+
+  .faq__layout {
+    grid-template-columns: minmax(18rem, 0.75fr) minmax(0, 1.25fr);
+    gap: 5rem;
+    align-items: start;
   }
 }

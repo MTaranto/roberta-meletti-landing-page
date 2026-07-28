@@ -94,9 +94,8 @@ a {
 
 .hero {
   display: grid;
-  min-height: calc(100vh - 5rem);
   align-items: center;
-  padding-block: 4rem;
+  padding-block: 3.5rem 4.5rem;
   background: var(--color-background);
 }
 
@@ -306,6 +305,104 @@ a {
   color: var(--color-text-muted);
 }
 
+.about {
+  padding-block: 5rem;
+  background: var(--color-background);
+}
+
+.about__heading {
+  margin-bottom: 2.5rem;
+}
+
+.about__introduction {
+  display: grid;
+  gap: 2rem;
+  align-items: center;
+}
+
+.about__media-placeholder {
+  display: grid;
+  min-height: 24rem;
+  place-items: center;
+  align-content: center;
+  gap: 1.25rem;
+  padding: 2rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  background: var(--color-surface);
+  color: var(--color-brown);
+  text-align: center;
+}
+
+.about__media-placeholder img {
+  width: min(55%, 12rem);
+  opacity: 0.35;
+}
+
+.about__media-placeholder span {
+  max-width: 16rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.about__text {
+  max-width: 44rem;
+}
+
+.about__text p {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.about__text p + p {
+  margin-top: 1.25rem;
+}
+
+.about__principles {
+  display: grid;
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+.principle-card {
+  position: relative;
+  padding: 1.5rem;
+  border-top: 0.25rem solid var(--color-gold);
+  border-radius: 0.5rem;
+  background: var(--color-surface);
+}
+
+.principle-card__number {
+  display: block;
+  margin-bottom: 1rem;
+  color: var(--color-gold);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.principle-card h3 {
+  margin: 0;
+  font-size: 1.35rem;
+  line-height: 1.25;
+}
+
+.principle-card p {
+  margin: 0.75rem 0 0;
+  color: var(--color-text-muted);
+}
+
+.about__action {
+  margin-top: 2.5rem;
+  text-align: center;
+}
+
+.about__action .button {
+  margin-top: 0;
+}
+
 @media (min-width: 48rem) {
   :root {
     --page-padding: 2rem;
@@ -313,6 +410,10 @@ a {
 
   .site-header__brand {
     width: 13rem;
+  }
+
+  .hero {
+    padding-block: 4.5rem 5.5rem;
   }
 
   .hero__content {
@@ -340,9 +441,26 @@ a {
   .treatment-card:last-child {
     grid-column: 1 / -1;
   }
+
+  .about {
+    padding-block: 6rem;
+  }
+
+  .about__introduction {
+    grid-template-columns: minmax(16rem, 0.8fr) minmax(0, 1.2fr);
+    gap: 3rem;
+  }
+
+  .about__principles {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 @media (min-width: 64rem) {
+  .hero {
+    padding-block: 5.5rem 6.5rem;
+  }
+
   .treatments__grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -361,5 +479,10 @@ a {
 
   .treatments__closing .button {
     margin-top: 0;
+  }
+
+  .about__introduction {
+    grid-template-columns: minmax(20rem, 0.85fr) minmax(0, 1.15fr);
+    gap: 4rem;
   }
 }

@@ -800,6 +800,189 @@ a {
   margin-top: 1.5rem;
 }
 
+.closing {
+  padding-block: 5rem;
+  overflow: hidden;
+  background: var(--color-brown);
+  color: #ffffff;
+}
+
+.closing__layout {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.closing__content {
+  max-width: 48rem;
+}
+
+.closing h2 {
+  max-width: 18ch;
+  margin: 0;
+  font-size: clamp(2.25rem, 9vw, 4rem);
+  line-height: 1.08;
+}
+
+.closing__content > p {
+  max-width: 42rem;
+  margin: 1.25rem 0 0;
+  color: var(--color-beige);
+}
+
+.closing__content > p + p {
+  margin-top: 1rem;
+}
+
+.closing .button {
+  margin-top: 2rem;
+}
+
+.closing__response {
+  font-size: 0.875rem;
+}
+
+.closing__brand {
+  display: grid;
+  place-items: center;
+}
+
+.closing__brand img {
+  width: min(48vw, 11rem);
+  opacity: 0.62;
+}
+
+.site-footer {
+  padding-block: 4rem 2rem;
+  background: var(--color-text);
+  color: #ffffff;
+}
+
+.site-footer__main {
+  display: grid;
+  gap: 3rem;
+}
+
+.site-footer__brand {
+  width: 100%;
+  max-width: 22rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.site-footer__brand img {
+  width: min(100%, 18rem);
+  margin-inline: auto;
+}
+
+.site-footer__brand p {
+  margin: 1.25rem 0 0;
+  color: var(--color-beige);
+  font-style: italic;
+}
+
+.site-footer__information {
+  display: grid;
+  gap: 2rem;
+}
+
+.site-footer__group h2 {
+  margin: 0 0 0.875rem;
+  color: var(--color-gold);
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.site-footer__group p {
+  margin: 0;
+  color: var(--color-beige);
+}
+
+.site-footer__group p + p {
+  margin-top: 0.375rem;
+}
+
+.site-footer__group address {
+  font-style: normal;
+}
+
+.site-footer__links {
+  display: grid;
+  gap: 0.65rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-footer__links a {
+  display: inline-flex;
+  gap: 0.65rem;
+  align-items: center;
+  width: fit-content;
+  color: var(--color-beige);
+  text-decoration: none;
+}
+
+.site-footer__links a span {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25rem;
+}
+
+.site-footer__social-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex: 0 0 auto;
+  transition: transform 180ms ease;
+}
+
+.site-footer__social-icon--whatsapp {
+  color: #25d366;
+}
+
+.site-footer__social-icon--instagram {
+  color: #e4405f;
+}
+
+.site-footer__social-icon--linkedin {
+  color: #0a66c2;
+}
+
+.site-footer__links a:hover {
+  color: var(--color-gold);
+}
+
+.site-footer__links a:hover .site-footer__social-icon {
+  transform: translateY(-1px);
+}
+
+.site-footer__links a:focus-visible {
+  border-radius: 0.125rem;
+  outline: 3px solid var(--color-gold);
+  outline-offset: 4px;
+}
+
+.site-footer__disclaimer {
+  margin: 3rem 0 0;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(246, 232, 223, 0.2);
+  color: var(--color-beige);
+  font-size: 0.8125rem;
+}
+
+.site-footer__bottom {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  color: var(--color-gray);
+  font-size: 0.8125rem;
+}
+
+.site-footer__bottom p {
+  margin: 0;
+}
+
 @media (min-width: 48rem) {
   :root {
     --page-padding: 2rem;
@@ -911,6 +1094,28 @@ a {
     padding-left: 1.5rem;
     border-left: 1px solid var(--color-border);
   }
+
+  .closing {
+    padding-block: 6rem;
+  }
+
+  .closing__brand img {
+    width: 13rem;
+  }
+
+  .site-footer {
+    padding-top: 5rem;
+  }
+
+  .site-footer__information {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .site-footer__bottom {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 2rem;
+    align-items: center;
+  }
 }
 
 @media (min-width: 64rem) {
@@ -1009,5 +1214,29 @@ a {
 
   .service-area__closing .button {
     margin-top: 0;
+  }
+
+  .closing__layout {
+    grid-template-columns: minmax(0, 1.35fr) minmax(14rem, 0.65fr);
+    gap: 4rem;
+  }
+
+  .closing__brand img {
+    width: min(100%, 18rem);
+  }
+
+  .site-footer__main {
+    grid-template-columns: minmax(16rem, 0.7fr) minmax(0, 1.3fr);
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .site-footer__brand {
+    margin-inline: 0;
+    text-align: left;
+  }
+
+  .site-footer__brand img {
+    margin-inline: 0;
   }
 }

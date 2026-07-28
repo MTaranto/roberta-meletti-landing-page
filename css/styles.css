@@ -225,6 +225,11 @@ a {
   color: var(--color-text-muted);
 }
 
+.section-heading > p + p {
+  margin-top: 1rem;
+  color: var(--color-text-muted);
+}
+
 .treatments__grid {
   display: grid;
   gap: 1rem;
@@ -556,8 +561,8 @@ a {
 }
 
 .trust__closing h3 {
-  margin: 0;
   max-width: 42rem;
+  margin: 0;
   font-size: 1.5rem;
   line-height: 1.25;
 }
@@ -669,6 +674,132 @@ a {
   margin-top: 1rem;
 }
 
+.service-area {
+  padding-block: 5rem;
+  background: var(--color-surface-alt);
+}
+
+.service-area__heading {
+  max-width: 52rem;
+}
+
+.service-area__content {
+  display: grid;
+  gap: 1rem;
+  align-items: start;
+}
+
+.service-area__locations,
+.service-area__schedule {
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  background: var(--color-background);
+}
+
+.service-area__locations {
+  display: grid;
+  gap: 0;
+}
+
+.location-card {
+  padding-bottom: 1.5rem;
+}
+
+.location-card + .location-card {
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.location-card__label {
+  margin: 0 0 0.5rem;
+  color: var(--color-gold);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.location-card h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+
+.location-card p:not(.location-card__label) {
+  margin: 0.75rem 0 0;
+  color: var(--color-text-muted);
+}
+
+.service-area__note {
+  margin: 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  text-align: center;
+  text-wrap: balance;
+}
+
+.service-area__schedule {
+  display: flex;
+  flex-direction: column;
+}
+
+.service-area__schedule h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+
+.service-area__hours {
+  margin: 1rem 0 0;
+}
+
+.service-area__hours div {
+  display: grid;
+  gap: 0.125rem;
+  padding-block: 0.7rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.service-area__hours dt {
+  font-weight: 700;
+}
+
+.service-area__hours dd {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.service-area__response {
+  margin: 0.875rem 0 0;
+  padding-top: 0.875rem;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+}
+
+.service-area__closing {
+  margin-top: 2.5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid rgba(117, 97, 88, 0.3);
+}
+
+.service-area__closing h3 {
+  max-width: 44rem;
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.25;
+}
+
+.service-area__closing p {
+  margin: 0.75rem 0 0;
+  color: var(--color-text-muted);
+}
+
+.service-area__closing .button {
+  margin-top: 1.5rem;
+}
+
 @media (min-width: 48rem) {
   :root {
     --page-padding: 2rem;
@@ -737,6 +868,49 @@ a {
   .faq {
     padding-block: 6rem;
   }
+
+  .service-area {
+    padding-block: 6rem;
+  }
+
+  .service-area__locations,
+  .service-area__schedule {
+    padding: 2rem;
+  }
+
+  .service-area__locations {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .location-card {
+    padding: 0 1.5rem 0 0;
+  }
+
+  .location-card + .location-card {
+    padding: 0 0 0 1.5rem;
+    border-top: 0;
+    border-left: 1px solid var(--color-border);
+  }
+
+  .service-area__note {
+    grid-column: 1 / -1;
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+  }
+
+  .service-area__hours {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .service-area__hours div {
+    padding: 0.75rem 1.5rem 0 0;
+  }
+
+  .service-area__hours div + div {
+    padding-left: 1.5rem;
+    border-left: 1px solid var(--color-border);
+  }
 }
 
 @media (min-width: 64rem) {
@@ -784,5 +958,56 @@ a {
     grid-template-columns: minmax(18rem, 0.75fr) minmax(0, 1.25fr);
     gap: 5rem;
     align-items: start;
+  }
+
+  .service-area__content {
+    grid-template-columns: minmax(0, 1.45fr) minmax(19rem, 0.75fr);
+    gap: 1.5rem;
+    align-items: stretch;
+  }
+
+  .service-area__locations,
+  .service-area__schedule {
+    height: 100%;
+  }
+
+  .service-area__schedule {
+    padding: 1.25rem 1.75rem;
+  }
+
+  .service-area__schedule h3 {
+    font-size: 1.4rem;
+  }
+
+  .service-area__hours {
+    display: block;
+    margin-top: 0.7rem;
+  }
+
+  .service-area__hours div {
+    padding: 0.5rem 0;
+  }
+
+  .service-area__hours div + div {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .service-area__response {
+    margin-top: 0.7rem;
+    padding-top: 0.7rem;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+  }
+
+  .service-area__closing {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .service-area__closing .button {
+    margin-top: 0;
   }
 }

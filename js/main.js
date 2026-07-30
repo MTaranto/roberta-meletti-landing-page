@@ -20,9 +20,9 @@ videoCards.forEach((videoCard) => {
    */
   const setVideoState = (state) => {
     const labels = {
-      initial: "Reproduzir vídeo do procedimento facial",
-      playing: "Pausar vídeo do procedimento facial",
-      paused: "Continuar vídeo pausado do procedimento facial",
+      initial: "Reproduzir vídeo do procedimento de harmonização facial",
+      playing: "Pausar vídeo do procedimento de harmonização facial",
+      paused: "Continuar vídeo pausado do procedimento de harmonização facial",
     };
 
     videoCard.dataset.videoState = state;

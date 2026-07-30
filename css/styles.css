@@ -39,6 +39,10 @@ body {
   line-height: 1.6;
 }
 
+body:has(.media-viewer[open]) {
+  overflow: hidden;
+}
+
 img {
   display: block;
   max-width: 100%;
@@ -46,6 +50,14 @@ img {
 
 a {
   color: inherit;
+}
+
+button {
+  font: inherit;
+}
+
+[hidden] {
+  display: none !important;
 }
 
 .container {
@@ -360,7 +372,7 @@ a {
 }
 
 .about__portrait {
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 3 / 4;
   margin: 0;
   overflow: hidden;
   border: 1px solid var(--color-border);
@@ -460,10 +472,12 @@ a {
 .practice__grid {
   display: grid;
   gap: 1.5rem;
+  align-items: stretch;
 }
 
 .practice-card {
   display: flex;
+  height: 100%;
   flex-direction: column;
   margin: 0;
   overflow: hidden;
@@ -478,6 +492,15 @@ a {
   overflow: hidden;
   border-bottom: 1px solid var(--color-border);
   background: var(--color-surface-alt);
+}
+
+.practice-card__media--image {
+  width: 100%;
+  padding: 0;
+  border-top: 0;
+  border-right: 0;
+  border-left: 0;
+  cursor: zoom-in;
 }
 
 .practice-card__media--video {
@@ -504,10 +527,6 @@ a {
   cursor: default;
 }
 
-/*
- * Active playback can be paused by clicking directly on the video.
- * Initial and paused playback use the dedicated control button.
- */
 .practice-card__media--video[data-video-state="playing"]
   .practice-card__video {
   cursor: pointer;
@@ -552,6 +571,10 @@ a {
 .practice-card__video-toggle:focus-visible {
   outline: 3px solid var(--color-gold);
   outline-offset: 4px;
+}
+
+.practice-card__video-toggle:active {
+  transform: translate(-50%, -50%) scale(0.96);
 }
 
 .practice-card__video-control {
@@ -619,18 +642,30 @@ a {
   display: flex;
 }
 
-.practice-card figcaption {
+.practice-card figcaption,
+.result-card figcaption {
+  display: flex;
   flex: 1;
+  flex-direction: column;
+}
+
+.practice-card figcaption {
   padding: 1.5rem;
 }
 
-.practice-card h4 {
+.result-card figcaption {
+  padding: 1.25rem 1.5rem 1.5rem;
+}
+
+.practice-card h4,
+.result-card h4 {
   margin: 0;
   font-size: 1.35rem;
   line-height: 1.25;
 }
 
-.practice-card figcaption p {
+.practice-card figcaption p,
+.result-card figcaption p {
   margin: 0.75rem 0 0;
   color: var(--color-text-muted);
 }
@@ -639,10 +674,12 @@ a {
 .results__grid {
   display: grid;
   gap: 1.5rem;
+  align-items: stretch;
 }
 
 .result-card {
   display: flex;
+  height: 100%;
   flex-direction: column;
   margin: 0;
   overflow: hidden;
@@ -653,10 +690,18 @@ a {
 
 .result-card__media {
   position: relative;
+  width: 100%;
   aspect-ratio: 3 / 4;
+  padding: 0;
   overflow: hidden;
+  border-top: 0;
+  border-right: 0;
   border-bottom: 1px solid var(--color-border);
+  border-left: 0;
   background: #ffffff;
+  color: inherit;
+  cursor: zoom-in;
+  text-align: initial;
 }
 
 .result-card__image {
@@ -716,28 +761,269 @@ a {
   box-shadow: 0 0.125rem 0.5rem rgba(61, 53, 50, 0.12);
 }
 
-.result-card figcaption {
-  flex: 1;
-  padding: 1.5rem;
-}
-
-.result-card h4 {
-  margin: 0;
-  font-size: 1.35rem;
-  line-height: 1.25;
-}
-
-.result-card figcaption p {
-  margin: 0.75rem 0 0;
-  color: var(--color-text-muted);
-}
-
 .results__disclaimer {
   margin: 1.5rem 0 0;
   padding-left: 1rem;
   border-left: 0.25rem solid var(--color-gold);
   color: var(--color-text-muted);
   font-size: 0.875rem;
+}
+
+/* Media expansion controls */
+.media-expand-target {
+  position: relative;
+  transition: filter 180ms ease;
+}
+
+.media-expand-target:hover {
+  filter: brightness(0.97);
+}
+
+.media-expand-target:focus-visible {
+  outline: 3px solid var(--color-gold);
+  outline-offset: -3px;
+}
+
+/* The clickable area remains comfortable, but only the PNG icon is visible. */
+.media-expand-indicator {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  z-index: 3;
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  filter: drop-shadow(0 0.08rem 0.16rem rgba(0, 0, 0, 0.9));
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.media-expand-target .media-expand-indicator {
+  pointer-events: none;
+}
+
+.media-expand-target:hover .media-expand-indicator,
+.media-expand-indicator:hover {
+  transform: scale(1.12);
+}
+
+/* Result images keep the control away from Roberta's signature. */
+.media-expand-indicator--result {
+  right: auto;
+  left: 0.5rem;
+}
+
+.media-expand-indicator--video {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(0.2rem);
+}
+
+.practice-card__media--video[data-video-state="playing"]
+  .media-expand-indicator--video {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.media-expand-indicator--video:focus-visible {
+  border-radius: 0.2rem;
+  outline: 3px solid var(--color-gold);
+  outline-offset: -0.15rem;
+}
+
+/* PNG assets replace the previous icon drawn with CSS gradients. */
+.media-expand-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  background:
+    url("../assets/icons/maximize-icon-white.png")
+    center / contain
+    no-repeat;
+}
+
+/* Shared image and video viewer */
+.media-viewer {
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  background: transparent;
+  color: #ffffff;
+}
+
+.media-viewer[open] {
+  display: grid;
+  place-items: center;
+}
+
+.media-viewer::backdrop {
+  background: rgba(24, 20, 18, 0.62);
+  backdrop-filter: blur(0.12rem);
+}
+
+.media-viewer__panel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: transparent;
+}
+
+.media-viewer__stage {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+  background: transparent;
+}
+
+.media-viewer__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: transparent;
+  touch-action: pinch-zoom;
+}
+
+/* The 9:16 viewer follows the source video instead of stretching it. */
+.media-viewer[data-media-type="video"] .media-viewer__panel {
+  width: min(100vw, 56.25dvh);
+  height: auto;
+  aspect-ratio: 9 / 16;
+  margin-inline: auto;
+  overflow: hidden;
+  background: #000000;
+}
+
+.media-viewer[data-media-type="video"] .media-viewer__stage {
+  background: #000000;
+}
+
+.media-viewer[data-media-type="video"]
+  .practice-card__media--video {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 9 / 16;
+  border: 0;
+  background: #000000;
+}
+
+.media-viewer[data-media-type="video"]
+  .practice-card__video {
+  object-fit: contain;
+  background: #000000;
+}
+
+/* The same control returns the running video to its original card. */
+.media-viewer[data-media-type="video"]
+  .media-expand-indicator--video {
+  right: 0.5rem;
+  bottom: 0.5rem;
+  display: grid;
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+}
+
+/* The enlarged video uses the dedicated reduction asset. */
+.media-viewer[data-media-type="video"] .media-expand-icon {
+  background-image:
+    url("../assets/icons/minimize-icon-white.png");
+}
+
+.media-viewer__caption {
+  display: none;
+}
+
+.media-viewer__close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 4;
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  border-radius: 50%;
+  background: rgba(61, 53, 50, 0.88);
+  color: #ffffff;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 0.25rem 0.8rem rgba(0, 0, 0, 0.3);
+  transition:
+    background-color 180ms ease,
+    transform 180ms ease;
+}
+
+.media-viewer__close:hover {
+  background: rgba(61, 53, 50, 1);
+  transform: scale(1.06);
+}
+
+.media-viewer__close:focus-visible {
+  outline: 3px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
+.media-viewer__close span {
+  transform: translateY(-0.08rem);
+}
+
+@media (min-width: 75rem) {
+  .media-viewer[data-media-type="image"] .media-viewer__panel {
+    display: grid;
+    width: fit-content;
+    height: fit-content;
+    max-width: 92vw;
+    max-height: 92dvh;
+    grid-template-rows: minmax(0, 1fr) auto;
+    border: 1px solid rgba(246, 232, 223, 0.24);
+    border-radius: 0.75rem;
+    background: var(--color-text);
+    box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.42);
+  }
+
+  .media-viewer[data-media-type="image"] .media-viewer__stage {
+    width: fit-content;
+    height: fit-content;
+    max-width: 92vw;
+    max-height: calc(92dvh - 3.5rem);
+  }
+
+  .media-viewer[data-media-type="image"] .media-viewer__image {
+    width: auto;
+    height: auto;
+    max-width: 92vw;
+    max-height: calc(92dvh - 3.5rem);
+  }
+
+  .media-viewer[data-media-type="image"] .media-viewer__caption {
+    display: block;
+    min-height: 3.5rem;
+    margin: 0;
+    padding: 1rem 4.5rem 1rem 1.25rem;
+    background: var(--color-text);
+    color: var(--color-beige);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    line-height: 1.4;
+  }
 }
 
 /* Testimonials */

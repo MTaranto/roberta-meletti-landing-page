@@ -393,7 +393,12 @@
 
           <div class="practice__grid">
             <figure class="practice-card">
-              <div class="practice-card__media">
+              <button
+                class="practice-card__media practice-card__media--image media-expand-target"
+                type="button"
+                aria-label="Ampliar imagem: Atuação profissional"
+                data-expand-image
+              >
                 <img
                   class="practice-card__asset practice-card__asset--photo"
                   src="assets/images/content/procedures/roberta-meletti-performing-facial-procedure-02.webp"
@@ -401,7 +406,14 @@
                   loading="lazy"
                   decoding="async"
                 >
-              </div>
+
+                <span
+                  class="media-expand-indicator"
+                  aria-hidden="true"
+                >
+                  <span class="media-expand-icon"></span>
+                </span>
+              </button>
 
               <figcaption>
                 <h4>Atuação profissional</h4>
@@ -410,6 +422,7 @@
                   Condução cuidadosa, domínio técnico e atenção aos detalhes
                   durante o atendimento.
                 </p>
+
               </figcaption>
             </figure>
 
@@ -463,6 +476,15 @@
                     </span>
                   </span>
                 </button>
+
+                <button
+                  class="media-expand-indicator media-expand-indicator--video"
+                  type="button"
+                  aria-label="Ampliar vídeo do procedimento de harmonização facial"
+                  data-expand-video
+                >
+                  <span class="media-expand-icon" aria-hidden="true"></span>
+                </button>
               </div>
 
               <figcaption>
@@ -472,6 +494,7 @@
                   Precisão nos movimentos, atenção à sensibilidade da cliente e
                   cuidado constante durante cada etapa do procedimento.
                 </p>
+
               </figcaption>
             </figure>
           </div>
@@ -485,7 +508,12 @@
 
           <div class="results__grid">
             <figure class="result-card">
-              <div class="result-card__media">
+              <button
+                class="result-card__media media-expand-target"
+                type="button"
+                aria-label="Ampliar imagem: Harmonização facial — vista frontal"
+                data-expand-image
+              >
                 <img
                   class="result-card__image result-card__image--front"
                   src="assets/images/content/results/facial-harmonization-case-01-before-after-front.webp"
@@ -512,7 +540,14 @@
                   alt=""
                   aria-hidden="true"
                 >
-              </div>
+
+                <span
+                  class="media-expand-indicator media-expand-indicator--result"
+                  aria-hidden="true"
+                >
+                  <span class="media-expand-icon"></span>
+                </span>
+              </button>
 
               <figcaption>
                 <h4>Harmonização facial — vista frontal</h4>
@@ -523,11 +558,17 @@
                   sulcos nasolabiais, promovendo proporções mais equilibradas
                   sem descaracterizar os traços naturais.
                 </p>
+
               </figcaption>
             </figure>
 
             <figure class="result-card">
-              <div class="result-card__media">
+              <button
+                class="result-card__media media-expand-target"
+                type="button"
+                aria-label="Ampliar imagem: Harmonização facial — vista lateral"
+                data-expand-image
+              >
                 <img
                   class="result-card__image result-card__image--profile"
                   src="assets/images/content/results/facial-harmonization-case-01-before-after-profile.webp"
@@ -554,7 +595,14 @@
                   alt=""
                   aria-hidden="true"
                 >
-              </div>
+
+                <span
+                  class="media-expand-indicator media-expand-indicator--result"
+                  aria-hidden="true"
+                >
+                  <span class="media-expand-icon"></span>
+                </span>
+              </button>
 
               <figcaption>
                 <h4>Harmonização facial — vista lateral</h4>
@@ -564,11 +612,17 @@
                   reduz visualmente a aparência da papada e evidencia uma
                   transição mais harmoniosa entre a face e o pescoço.
                 </p>
+
               </figcaption>
             </figure>
 
             <figure class="result-card">
-              <div class="result-card__media">
+              <button
+                class="result-card__media media-expand-target"
+                type="button"
+                aria-label="Ampliar imagem: Preenchimento labial"
+                data-expand-image
+              >
                 <img
                   class="result-card__image result-card__image--lip"
                   src="assets/images/content/results/lip-filler-case-01-before-after.webp"
@@ -595,7 +649,14 @@
                   alt=""
                   aria-hidden="true"
                 >
-              </div>
+
+                <span
+                  class="media-expand-indicator media-expand-indicator--result"
+                  aria-hidden="true"
+                >
+                  <span class="media-expand-icon"></span>
+                </span>
+              </button>
 
               <figcaption>
                 <h4>Preenchimento labial</h4>
@@ -605,6 +666,7 @@
                   definido e proporção mais equilibrada entre os lábios,
                   preservando uma aparência harmoniosa.
                 </p>
+
               </figcaption>
             </figure>
           </div>
@@ -1103,5 +1165,40 @@
       </div>
     </div>
   </footer>
+
+  <!-- Shared media viewer -->
+  <dialog
+    class="media-viewer"
+    aria-label="Visualizador de mídia"
+    data-media-type=""
+    data-media-viewer
+  >
+    <div class="media-viewer__panel">
+      <button
+        class="media-viewer__close"
+        type="button"
+        aria-label="Fechar visualizador"
+        data-media-viewer-close
+      >
+        <span aria-hidden="true">×</span>
+      </button>
+
+      <div class="media-viewer__stage">
+        <img
+          class="media-viewer__image"
+          src=""
+          alt=""
+          hidden
+          data-media-viewer-image
+        >
+
+      </div>
+
+      <p
+        class="media-viewer__caption"
+        data-media-viewer-caption
+      ></p>
+    </div>
+  </dialog>
 </body>
 </html>

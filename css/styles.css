@@ -1,17 +1,15 @@
+/* Design tokens */
 :root {
-  /* Official brand palette */
   --color-beige: #f6e8df;
   --color-nude: #e7ccc5;
   --color-brown: #756158;
   --color-gray: #908c8b;
   --color-gold: #cca773;
 
-  /* Supporting colors */
   --color-background: #fcf8f6;
   --color-text: #3d3532;
   --color-border: #dccfc9;
 
-  /* Semantic colors */
   --color-surface: var(--color-beige);
   --color-surface-alt: var(--color-nude);
   --color-text-muted: var(--color-brown);
@@ -22,6 +20,7 @@
   --page-padding: 1.25rem;
 }
 
+/* Base styles */
 *,
 *::before,
 *::after {
@@ -57,6 +56,7 @@ a {
   margin-inline: auto;
 }
 
+/* Accessibility */
 .skip-link {
   position: absolute;
   top: 0;
@@ -72,6 +72,7 @@ a {
   transform: translateY(0);
 }
 
+/* Header */
 .site-header {
   border-bottom: 1px solid var(--color-border);
   background: var(--color-background);
@@ -92,6 +93,7 @@ a {
   height: auto;
 }
 
+/* Hero */
 .hero {
   display: grid;
   align-items: center;
@@ -139,6 +141,17 @@ a {
   font-size: 1rem;
 }
 
+.hero__location {
+  margin: 1rem 0 0;
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+.hero__brand {
+  display: none;
+}
+
+/* Buttons */
 .button {
   display: inline-flex;
   align-items: center;
@@ -185,21 +198,7 @@ a {
   outline-offset: 3px;
 }
 
-.hero__location {
-  margin: 1rem 0 0;
-  color: var(--color-text-muted);
-  font-size: 0.875rem;
-}
-
-.hero__brand {
-  display: none;
-}
-
-.treatments {
-  padding-block: 5rem;
-  background: var(--color-surface);
-}
-
+/* Shared headings */
 .section-heading {
   max-width: 48rem;
   margin-bottom: 2.5rem;
@@ -228,6 +227,28 @@ a {
 .section-heading > p + p {
   margin-top: 1rem;
   color: var(--color-text-muted);
+}
+
+.subsection-heading {
+  max-width: 44rem;
+  margin-bottom: 2rem;
+}
+
+.subsection-heading h3 {
+  margin: 0;
+  font-size: clamp(1.75rem, 6vw, 2.5rem);
+  line-height: 1.15;
+}
+
+.subsection-heading p {
+  margin: 0.75rem 0 0;
+  color: var(--color-text-muted);
+}
+
+/* Treatments */
+.treatments {
+  padding-block: 5rem;
+  background: var(--color-surface);
 }
 
 .treatments__grid {
@@ -322,6 +343,7 @@ a {
   color: var(--color-text-muted);
 }
 
+/* About */
 .about {
   padding-block: 5rem;
   background: var(--color-background);
@@ -399,6 +421,7 @@ a {
   margin-top: 0;
 }
 
+/* Trust and credentials */
 .trust {
   padding-block: 5rem;
   background: var(--color-surface);
@@ -427,27 +450,192 @@ a {
   color: var(--color-text-muted);
 }
 
+.practice,
 .results,
 .testimonials {
   margin-top: 4rem;
 }
 
-.subsection-heading {
-  max-width: 44rem;
-  margin-bottom: 2rem;
+/* Real procedure media */
+.practice__grid {
+  display: grid;
+  gap: 1.5rem;
 }
 
-.subsection-heading h3 {
+.practice-card {
+  display: flex;
+  flex-direction: column;
   margin: 0;
-  font-size: clamp(1.75rem, 6vw, 2.5rem);
-  line-height: 1.15;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  background: var(--color-background);
 }
 
-.subsection-heading p {
+.practice-card__media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface-alt);
+}
+
+.practice-card__media--video {
+  display: grid;
+  place-items: center;
+  background: var(--color-text);
+}
+
+.practice-card__asset,
+.practice-card__video {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.practice-card__asset--photo {
+  object-fit: cover;
+  object-position: center;
+}
+
+.practice-card__video {
+  object-fit: contain;
+  background: var(--color-text);
+  cursor: default;
+}
+
+/*
+ * Active playback can be paused by clicking directly on the video.
+ * Initial and paused playback use the dedicated control button.
+ */
+.practice-card__media--video[data-video-state="playing"]
+  .practice-card__video {
+  cursor: pointer;
+}
+
+/*
+ * The control occupies only its visible area instead of covering
+ * the complete video surface.
+ */
+.practice-card__video-toggle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  display: grid;
+  width: 4.5rem;
+  height: 2.5rem;
+  padding: 0;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.68);
+  border-radius: 0.55rem;
+  background: rgba(117, 97, 88, 0.84);
+  color: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 0.3rem 0.8rem rgba(61, 53, 50, 0.25);
+  transform: translate(-50%, -50%);
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.practice-card__video-toggle:hover {
+  border-color: rgba(255, 255, 255, 0.92);
+  background: rgba(117, 97, 88, 0.97);
+  box-shadow: 0 0.45rem 1rem rgba(61, 53, 50, 0.34);
+  transform: translate(-50%, -50%) scale(1.06);
+}
+
+.practice-card__video-toggle:focus-visible {
+  outline: 3px solid var(--color-gold);
+  outline-offset: 4px;
+}
+
+.practice-card__video-control {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+  pointer-events: none;
+}
+
+.practice-card__video-icon--play {
+  width: 0;
+  height: 0;
+  margin-left: 0.14rem;
+  border-top: 0.52rem solid transparent;
+  border-bottom: 0.52rem solid transparent;
+  border-left: 0.8rem solid currentColor;
+}
+
+.practice-card__video-icon--resume {
+  display: none;
+  gap: 0.55rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.practice-card__resume-symbol {
+  order: 1;
+  width: 0;
+  height: 0;
+  border-top: 0.48rem solid transparent;
+  border-bottom: 0.48rem solid transparent;
+  border-left: 0.74rem solid currentColor;
+}
+
+.practice-card__pause-symbol {
+  display: flex;
+  order: 2;
+  gap: 0.18rem;
+}
+
+.practice-card__pause-symbol span {
+  width: 0.23rem;
+  height: 1rem;
+  border-radius: 0.06rem;
+  background: currentColor;
+}
+
+/* No visual control remains over the image during playback. */
+.practice-card__media--video[data-video-state="playing"]
+  .practice-card__video-toggle {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0.94);
+}
+
+/* The paused state replaces the initial play icon with play and pause. */
+.practice-card__media--video[data-video-state="paused"]
+  .practice-card__video-icon--play {
+  display: none;
+}
+
+.practice-card__media--video[data-video-state="paused"]
+  .practice-card__video-icon--resume {
+  display: flex;
+}
+
+.practice-card figcaption {
+  flex: 1;
+  padding: 1.5rem;
+}
+
+.practice-card h4 {
+  margin: 0;
+  font-size: 1.35rem;
+  line-height: 1.25;
+}
+
+.practice-card figcaption p {
   margin: 0.75rem 0 0;
   color: var(--color-text-muted);
 }
 
+/* Before-and-after results */
 .results__grid {
   display: grid;
   gap: 1.5rem;
@@ -552,6 +740,7 @@ a {
   font-size: 0.875rem;
 }
 
+/* Testimonials */
 .testimonials__grid {
   display: grid;
   gap: 1rem;
@@ -608,6 +797,7 @@ a {
   margin-top: 1.5rem;
 }
 
+/* FAQ */
 .faq {
   padding-block: 5rem;
   background: var(--color-background);
@@ -706,6 +896,7 @@ a {
   margin-top: 1rem;
 }
 
+/* Service area */
 .service-area {
   padding-block: 5rem;
   background: var(--color-surface-alt);
@@ -832,6 +1023,7 @@ a {
   margin-top: 1.5rem;
 }
 
+/* Closing section */
 .closing {
   padding-block: 5rem;
   overflow: hidden;
@@ -884,6 +1076,7 @@ a {
   opacity: 0.62;
 }
 
+/* Footer */
 .site-footer {
   padding-block: 4rem 2rem;
   background: var(--color-text);
@@ -1015,6 +1208,7 @@ a {
   margin: 0;
 }
 
+/* Tablet layout */
 @media (min-width: 48rem) {
   :root {
     --page-padding: 2rem;
@@ -1042,7 +1236,11 @@ a {
     margin-inline: auto;
   }
 
-  .treatments {
+  .treatments,
+  .about,
+  .trust,
+  .faq,
+  .service-area {
     padding-block: 6rem;
   }
 
@@ -1054,27 +1252,17 @@ a {
     grid-column: 1 / -1;
   }
 
-  .about {
-    padding-block: 6rem;
-  }
-
   .about__introduction {
     grid-template-columns: minmax(16rem, 0.8fr) minmax(0, 1.2fr);
     gap: 3rem;
   }
 
-  .about__principles {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .trust {
-    padding-block: 6rem;
-  }
-
+  .about__principles,
   .trust__credentials {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  .practice__grid,
   .results__grid,
   .testimonials__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1084,14 +1272,6 @@ a {
     grid-column: 1 / -1;
     width: calc(50% - 0.75rem);
     justify-self: center;
-  }
-
-  .faq {
-    padding-block: 6rem;
-  }
-
-  .service-area {
-    padding-block: 6rem;
   }
 
   .service-area__locations,
@@ -1156,6 +1336,7 @@ a {
   }
 }
 
+/* Desktop layout */
 @media (min-width: 64rem) {
   .hero {
     padding-block: 5.5rem 6.5rem;
@@ -1169,15 +1350,22 @@ a {
     grid-column: auto;
   }
 
-  .treatments__closing {
+  .treatments__closing,
+  .trust__closing,
+  .service-area__closing {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     gap: 2rem;
     align-items: center;
+  }
+
+  .treatments__closing {
     padding: 2rem;
   }
 
-  .treatments__closing .button {
+  .treatments__closing .button,
+  .trust__closing .button,
+  .service-area__closing .button {
     margin-top: 0;
   }
 
@@ -1194,17 +1382,6 @@ a {
     grid-column: auto;
     width: auto;
     justify-self: stretch;
-  }
-
-  .trust__closing {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 2rem;
-    align-items: center;
-  }
-
-  .trust__closing .button {
-    margin-top: 0;
   }
 
   .faq__layout {
@@ -1253,17 +1430,6 @@ a {
     line-height: 1.5;
   }
 
-  .service-area__closing {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 2rem;
-    align-items: center;
-  }
-
-  .service-area__closing .button {
-    margin-top: 0;
-  }
-
   .closing__layout {
     grid-template-columns: minmax(0, 1.35fr) minmax(14rem, 0.65fr);
     gap: 4rem;
@@ -1286,5 +1452,21 @@ a {
 
   .site-footer__brand img {
     margin-inline: 0;
+  }
+}
+
+/* Reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }

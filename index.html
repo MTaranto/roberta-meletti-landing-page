@@ -18,13 +18,16 @@
   >
 
   <link rel="stylesheet" href="css/styles.css">
+  <script src="js/main.js" defer></script>
 </head>
 
 <body>
+  <!-- Accessibility shortcut -->
   <a class="skip-link" href="#main-content">
     Ir para o conteúdo principal
   </a>
 
+  <!-- Site header -->
   <header class="site-header">
     <div class="container site-header__content">
       <a
@@ -42,6 +45,7 @@
   </header>
 
   <main id="main-content">
+    <!-- Hero section -->
     <section class="hero">
       <div class="container hero__content">
         <div class="hero__text">
@@ -86,6 +90,7 @@
       </div>
     </section>
 
+    <!-- Featured treatments -->
     <section
       class="treatments"
       id="tratamentos"
@@ -228,6 +233,7 @@
       </div>
     </section>
 
+    <!-- Professional profile -->
     <section
       class="about"
       id="sobre"
@@ -320,6 +326,7 @@
       </div>
     </section>
 
+    <!-- Trust, practice and treatment results -->
     <section
       class="trust"
       id="resultados"
@@ -373,6 +380,105 @@
           </article>
         </div>
 
+        <!-- Real procedure media -->
+        <div class="practice">
+          <header class="subsection-heading practice__heading">
+            <h3>Técnica e cuidado em prática</h3>
+
+            <p>
+              Registros reais do atendimento mostram como preparo, precisão e
+              atenção acompanham cada etapa do procedimento.
+            </p>
+          </header>
+
+          <div class="practice__grid">
+            <figure class="practice-card">
+              <div class="practice-card__media">
+                <img
+                  class="practice-card__asset practice-card__asset--photo"
+                  src="assets/images/content/procedures/roberta-meletti-performing-facial-procedure-02.webp"
+                  alt="Roberta Meletti realizando um procedimento facial em uma cliente"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </div>
+
+              <figcaption>
+                <h4>Atuação profissional</h4>
+
+                <p>
+                  Condução cuidadosa, domínio técnico e atenção aos detalhes
+                  durante o atendimento.
+                </p>
+              </figcaption>
+            </figure>
+
+            <figure class="practice-card">
+              <div
+                class="practice-card__media practice-card__media--video"
+                data-video-card
+                data-video-state="initial"
+              >
+                <video
+                  class="practice-card__video"
+                  id="procedure-video-02"
+                  muted
+                  playsinline
+                  preload="metadata"
+                  poster="assets/images/content/procedures/roberta-meletti-facial-procedure-02-poster.webp"
+                  aria-label="Vídeo de Roberta Meletti realizando um procedimento facial"
+                  data-video
+                >
+                  <source
+                    src="assets/videos/procedures/roberta-meletti-facial-procedure-02-web.mp4"
+                    type="video/mp4"
+                  >
+
+                  Seu navegador não oferece suporte à reprodução deste vídeo.
+                </video>
+
+                <button
+                  class="practice-card__video-toggle"
+                  type="button"
+                  aria-label="Reproduzir vídeo do procedimento facial"
+                  aria-controls="procedure-video-02"
+                  data-video-toggle
+                >
+                  <span
+                    class="practice-card__video-control"
+                    aria-hidden="true"
+                  >
+                    <span
+                      class="practice-card__video-icon practice-card__video-icon--play"
+                    ></span>
+
+                    <span
+                      class="practice-card__video-icon practice-card__video-icon--resume"
+                    >
+                      <span class="practice-card__pause-symbol">
+                        <span></span>
+                        <span></span>
+                      </span>
+
+                      <span class="practice-card__resume-symbol"></span>
+                    </span>
+                  </span>
+                </button>
+              </div>
+
+              <figcaption>
+                <h4>Procedimento facial</h4>
+
+                <p>
+                  Precisão nos movimentos, atenção à sensibilidade da cliente e
+                  cuidado constante durante cada etapa do procedimento.
+                </p>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <!-- Authorized before-and-after results -->
         <div class="results">
           <header class="subsection-heading">
             <h3>Resultados reais, cuidados individualizados</h3>
@@ -511,6 +617,7 @@
           </p>
         </div>
 
+        <!-- Client testimonials -->
         <div class="testimonials">
           <header class="subsection-heading">
             <h3>A experiência de quem confiou no meu cuidado</h3>
@@ -570,6 +677,7 @@
       </div>
     </section>
 
+    <!-- Frequently asked questions -->
     <section
       class="faq"
       id="perguntas-frequentes"
@@ -708,6 +816,7 @@
       </div>
     </section>
 
+    <!-- Service locations and schedule -->
     <section
       class="service-area"
       id="atendimento"
@@ -813,6 +922,7 @@
       </div>
     </section>
 
+    <!-- Final conversion section -->
     <section
       class="closing"
       id="contato"
@@ -860,6 +970,7 @@
     </section>
   </main>
 
+  <!-- Site footer -->
   <footer class="site-footer">
     <div class="container">
       <div class="site-footer__main">
@@ -919,8 +1030,7 @@
                     <path
                       fill="currentColor"
                       d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.967-.94 1.164-.173.198-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.297-.497.1-.198.05-.372-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.372-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479s1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.981.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.9 6.986c-.002 5.45-4.437 9.884-9.892 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495.003.16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.3-1.654a11.88 11.88 0 0 0 5.69 1.448h.005c6.554 0 11.89-5.333 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"
-                    >
-                    </path>
+                    ></path>
                   </svg>
 
                   <span>WhatsApp</span>
@@ -942,8 +1052,7 @@
                     <path
                       fill="currentColor"
                       d="M12 0C8.74 0 8.333.015 7.053.072 5.775.13 4.904.333 4.14.63c-.79.307-1.46.717-2.126 1.384C1.347 2.68.937 3.35.63 4.14.333 4.904.131 5.775.072 7.053.015 8.333 0 8.74 0 12s.015 3.667.072 4.947c.059 1.277.261 2.149.558 2.913.307.79.717 1.46 1.384 2.126.666.667 1.336 1.076 2.126 1.384.765.297 1.636.499 2.913.558C8.333 23.985 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.059 2.149-.261 2.913-.558.79-.308 1.46-.717 2.126-1.384.667-.666 1.076-1.336 1.384-2.126.297-.765.499-1.636.558-2.913.057-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.059-1.277-.261-2.149-.558-2.913-.308-.79-.717-1.46-1.384-2.126C21.32 1.347 20.65.937 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.015 15.26 0 12 0zm0 2.163c3.205 0 3.586.012 4.85.07 1.168.053 1.803.248 2.225.412.558.217.955.477 1.373.895.418.418.678.815.895 1.373.164.422.359 1.057.412 2.225.058 1.264.07 1.645.07 4.85s-.012 3.586-.07 4.85c-.053 1.168-.248 1.803-.412 2.225-.217.558-.477.955-.895 1.373-.418.418-.815.678-1.373.895-.422.164-1.057.359-2.225.412-1.264.058-1.645.07-4.85.07s-3.586-.012-4.85-.07c-1.168-.053-1.803-.248-2.225-.412-.558-.217-.955-.477-1.373-.895-.418-.418-.678-.815-.895-1.373-.164-.422-.359-1.057-.412-2.225-.058-1.264-.07-1.645-.07-4.85s.012-3.586.07-4.85c.053-1.168.248-1.803.412-2.225.217-.558.477-.955.895-1.373.418-.418.815-.678 1.373-.895.422-.164 1.057-.359 2.225-.412 1.264-.058 1.645-.07 4.85-.07zm0 3.676a6.161 6.161 0 1 0 0 12.322A6.161 6.161 0 0 0 12 5.839zm0 10.16a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm7.846-10.405a1.44 1.44 0 1 1-2.881 0 1.44 1.44 0 0 1 2.881 0Z"
-                    >
-                    </path>
+                    ></path>
                   </svg>
 
                   <span>Instagram</span>
@@ -965,8 +1074,7 @@
                     <path
                       fill="currentColor"
                       d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.119 20.452H3.555V9H7.12v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
-                    >
-                    </path>
+                    ></path>
                   </svg>
 
                   <span>LinkedIn</span>

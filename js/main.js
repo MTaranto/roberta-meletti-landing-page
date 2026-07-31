@@ -1,3 +1,87 @@
+/* Accessible mobile navigation */
+const menuButton = document.querySelector("[data-menu-toggle]");
+const navigation = document.querySelector("[data-navigation]");
+const desktopNavigationQuery = window.matchMedia("(min-width: 64rem)");
+
+if (
+  menuButton instanceof HTMLButtonElement &&
+  navigation instanceof HTMLElement
+) {
+  const setMenuState = (isOpen, { restoreFocus = false } = {}) => {
+    menuButton.setAttribute("aria-expanded", String(isOpen));
+    menuButton.setAttribute(
+      "aria-label",
+      isOpen
+        ? "Fechar menu de navegação"
+        : "Abrir menu de navegação",
+    );
+    navigation.dataset.open = String(isOpen);
+
+    if (restoreFocus) {
+      menuButton.focus();
+    }
+  };
+
+  menuButton.addEventListener("click", () => {
+    const isOpen = menuButton.getAttribute("aria-expanded") === "true";
+    setMenuState(!isOpen);
+  });
+
+  navigation.addEventListener("click", (event) => {
+    if (!(event.target instanceof Element)) return;
+
+    const selectedLink = event.target.closest("a");
+
+    if (selectedLink instanceof HTMLAnchorElement) {
+      setMenuState(false);
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    const isOpen = menuButton.getAttribute("aria-expanded") === "true";
+
+    if (event.key === "Escape" && isOpen) {
+      setMenuState(false, { restoreFocus: true });
+    }
+  });
+
+  desktopNavigationQuery.addEventListener("change", (event) => {
+    if (event.matches) {
+      setMenuState(false);
+    }
+  });
+}
+
+/* Back to top control */
+const backToTopButton = document.querySelector("[data-back-to-top]");
+const reducedMotionQuery = window.matchMedia(
+  "(prefers-reduced-motion: reduce)",
+);
+
+if (backToTopButton instanceof HTMLButtonElement) {
+  const updateBackToTopVisibility = () => {
+    const shouldShow = window.scrollY > 400;
+
+    backToTopButton.classList.toggle(
+      "back-to-top--visible",
+      shouldShow,
+    );
+  };
+
+  backToTopButton.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: reducedMotionQuery.matches ? "auto" : "smooth",
+    });
+  });
+
+  window.addEventListener("scroll", updateBackToTopVisibility, {
+    passive: true,
+  });
+
+  updateBackToTopVisibility();
+}
+
 /* Custom inline video controls */
 const videoCard = document.querySelector("[data-video-card]");
 const video = videoCard?.querySelector("[data-video]");

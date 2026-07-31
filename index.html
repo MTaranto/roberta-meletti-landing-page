@@ -33,14 +33,67 @@
       <a
         class="site-header__brand-link"
         href="#"
-        aria-label="Página inicial"
+        aria-label="Roberta Meletti Estética Avançada — Página inicial"
       >
+        <img
+          class="site-header__symbol"
+          src="assets/images/brand/symbol-roberta-golden.svg"
+          alt=""
+          aria-hidden="true"
+        >
+
         <img
           class="site-header__brand"
           src="assets/images/brand/wordmark-roberta-dark.svg"
-          alt="Roberta Meletti Estética Avançada"
+          alt=""
+          aria-hidden="true"
         >
       </a>
+
+      <button
+        class="site-header__menu-button"
+        type="button"
+        aria-label="Abrir menu de navegação"
+        aria-controls="primary-navigation"
+        aria-expanded="false"
+        data-menu-toggle
+      >
+        <span class="site-header__menu-icon" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+
+      <nav
+        class="site-header__navigation"
+        id="primary-navigation"
+        aria-label="Navegação principal"
+        data-open="false"
+        data-navigation
+      >
+        <ul class="site-header__navigation-list">
+          <li>
+            <a href="#tratamentos">Tratamentos</a>
+          </li>
+
+          <li>
+            <a href="#sobre">Sobre mim</a>
+          </li>
+
+          <li>
+            <a href="#resultados">Resultados</a>
+          </li>
+
+          <li>
+            <a href="#perguntas-frequentes">Dúvidas</a>
+          </li>
+
+          <li>
+            <a href="#atendimento">Atendimento</a>
+          </li>
+        </ul>
+      </nav>
     </div>
   </header>
 
@@ -422,7 +475,6 @@
                   Condução cuidadosa, domínio técnico e atenção aos detalhes
                   durante o atendimento.
                 </p>
-
               </figcaption>
             </figure>
 
@@ -494,7 +546,6 @@
                   Precisão nos movimentos, atenção à sensibilidade da cliente e
                   cuidado constante durante cada etapa do procedimento.
                 </p>
-
               </figcaption>
             </figure>
           </div>
@@ -558,7 +609,6 @@
                   sulcos nasolabiais, promovendo proporções mais equilibradas
                   sem descaracterizar os traços naturais.
                 </p>
-
               </figcaption>
             </figure>
 
@@ -612,7 +662,6 @@
                   reduz visualmente a aparência da papada e evidencia uma
                   transição mais harmoniosa entre a face e o pescoço.
                 </p>
-
               </figcaption>
             </figure>
 
@@ -666,7 +715,6 @@
                   definido e proporção mais equilibrada entre os lábios,
                   preservando uma aparência harmoniosa.
                 </p>
-
               </figcaption>
             </figure>
           </div>
@@ -1166,6 +1214,23 @@
     </div>
   </footer>
 
+  <!-- Back to top control -->
+  <button
+    class="back-to-top"
+    type="button"
+    aria-label="Voltar ao topo da página"
+    data-back-to-top
+  >
+    <img
+      src="assets/icons/top-icon-brown.png"
+      alt=""
+      width="256"
+      height="256"
+      aria-hidden="true"
+      decoding="async"
+    >
+  </button>
+
   <!-- Shared media viewer -->
   <dialog
     class="media-viewer"
@@ -1191,7 +1256,6 @@
           hidden
           data-media-viewer-image
         >
-
       </div>
 
       <p

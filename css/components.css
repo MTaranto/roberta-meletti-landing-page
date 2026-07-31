@@ -1,0 +1,142 @@
+/* Hero */
+.hero {
+  display: grid;
+  align-items: center;
+  padding-block: 3.5rem 4.5rem;
+  background: var(--color-background);
+}
+
+.hero__content {
+  display: grid;
+  gap: 3rem;
+  align-items: center;
+}
+
+.hero__text {
+  max-width: 42rem;
+}
+
+.hero__eyebrow {
+  margin: 0 0 0.5rem;
+  color: var(--color-brown);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero__slogan {
+  margin: 0 0 1.25rem;
+  color: var(--color-brown);
+  font-size: 0.95rem;
+  font-style: italic;
+}
+
+.hero h1 {
+  max-width: 18ch;
+  margin: 0;
+  font-size: clamp(2.4rem, 10vw, 4.5rem);
+  line-height: 1.05;
+}
+
+.hero__description {
+  max-width: 38rem;
+  margin: 1.5rem 0 0;
+  color: var(--color-text-muted);
+  font-size: 1rem;
+}
+
+.hero__location {
+  margin: 1rem 0 0;
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+.hero__brand {
+  display: none;
+}
+
+/* Buttons */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.25rem;
+  margin-top: 1.75rem;
+  padding: 0.875rem 1.25rem;
+  border: 1px solid transparent;
+  border-radius: 0.375rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: var(--shadow-control);
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.button--primary {
+  background: var(--color-brown);
+  color: #ffffff;
+}
+
+.button--light {
+  background: var(--color-background);
+  color: var(--color-text);
+}
+
+.button:focus-visible {
+  outline: 3px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
+/* Shared headings */
+.section-heading {
+  max-width: 48rem;
+  margin-bottom: 2.5rem;
+}
+
+.section-heading__eyebrow {
+  margin: 0 0 0.75rem;
+  color: var(--color-brown);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-size: clamp(2rem, 8vw, 3.5rem);
+  line-height: 1.1;
+}
+
+.section-heading > p:last-child {
+  margin: 1.25rem 0 0;
+  color: var(--color-text-muted);
+}
+
+.section-heading > p + p {
+  margin-top: 1rem;
+  color: var(--color-text-muted);
+}
+
+.subsection-heading {
+  max-width: 44rem;
+  margin-bottom: 2rem;
+}
+
+.subsection-heading h3 {
+  margin: 0;
+  font-size: clamp(1.75rem, 6vw, 2.5rem);
+  line-height: 1.15;
+}
+
+.subsection-heading p {
+  margin: 0.75rem 0 0;
+  color: var(--color-text-muted);
+}

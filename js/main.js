@@ -1,113 +1,226 @@
-/* Accessible mobile navigation */
-const menuButton = document.querySelector("[data-menu-toggle]");
-const navigation = document.querySelector("[data-navigation]");
-const desktopNavigationQuery = window.matchMedia("(min-width: 64rem)");
-
-if (
-  menuButton instanceof HTMLButtonElement &&
-  navigation instanceof HTMLElement
-) {
-  const setMenuState = (isOpen, { restoreFocus = false } = {}) => {
-    menuButton.setAttribute("aria-expanded", String(isOpen));
-    menuButton.setAttribute(
-      "aria-label",
-      isOpen
-        ? "Fechar menu de navegação"
-        : "Abrir menu de navegação",
-    );
-    navigation.dataset.open = String(isOpen);
-
-    if (restoreFocus) {
-      menuButton.focus();
-    }
-  };
-
-  menuButton.addEventListener("click", () => {
-    const isOpen = menuButton.getAttribute("aria-expanded") === "true";
-    setMenuState(!isOpen);
-  });
-
-  navigation.addEventListener("click", (event) => {
-    if (!(event.target instanceof Element)) return;
-
-    const selectedLink = event.target.closest("a");
-
-    if (selectedLink instanceof HTMLAnchorElement) {
-      setMenuState(false);
-    }
-  });
-
-  document.addEventListener("keydown", (event) => {
-    const isOpen = menuButton.getAttribute("aria-expanded") === "true";
-
-    if (event.key === "Escape" && isOpen) {
-      setMenuState(false, { restoreFocus: true });
-    }
-  });
-
-  desktopNavigationQuery.addEventListener("change", (event) => {
-    if (event.matches) {
-      setMenuState(false);
-    }
-  });
-}
-
-/* Back to top control */
-const backToTopButton = document.querySelector("[data-back-to-top]");
 const reducedMotionQuery = window.matchMedia(
   "(prefers-reduced-motion: reduce)",
 );
 
-if (backToTopButton instanceof HTMLButtonElement) {
-  const updateBackToTopVisibility = () => {
-    const shouldShow = window.scrollY > 400;
+function initMenu() {
+  const button = document.querySelector("[data-menu-toggle]");
+  const navigation = document.querySelector("[data-navigation]");
 
-    backToTopButton.classList.toggle(
-      "back-to-top--visible",
-      shouldShow,
+  if (
+    !(button instanceof HTMLButtonElement) ||
+    !(navigation instanceof HTMLElement)
+  ) {
+    return;
+  }
+
+  function setOpen(isOpen, restoreFocus = false) {
+    button.setAttribute("aria-expanded", String(isOpen));
+    button.setAttribute(
+      "aria-label",
+      isOpen ? "Fechar menu de navegação" : "Abrir menu de navegação",
     );
-  };
+    navigation.dataset.open = String(isOpen);
 
-  backToTopButton.addEventListener("click", () => {
+    if (restoreFocus) button.focus();
+  }
+
+  button.addEventListener("click", () => {
+    setOpen(button.getAttribute("aria-expanded") !== "true");
+  });
+
+  navigation.addEventListener("click", (event) => {
+    if (
+      event.target instanceof Element &&
+      event.target.closest("a") instanceof HTMLAnchorElement
+    ) {
+      setOpen(false);
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (
+      event.key === "Escape" &&
+      button.getAttribute("aria-expanded") === "true"
+    ) {
+      setOpen(false, true);
+    }
+  });
+
+  window.matchMedia("(min-width: 64rem)").addEventListener(
+    "change",
+    (event) => {
+      if (event.matches) setOpen(false);
+    },
+  );
+}
+
+function initBackToTop() {
+  const button = document.querySelector("[data-back-to-top]");
+
+  if (!(button instanceof HTMLButtonElement)) return;
+
+  function updateVisibility() {
+    button.classList.toggle("back-to-top--visible", window.scrollY > 400);
+  }
+
+  button.addEventListener("click", () => {
     window.scrollTo({
       top: 0,
       behavior: reducedMotionQuery.matches ? "auto" : "smooth",
     });
   });
-
-  window.addEventListener("scroll", updateBackToTopVisibility, {
-    passive: true,
-  });
-
-  updateBackToTopVisibility();
+  window.addEventListener("scroll", updateVisibility, { passive: true });
+  updateVisibility();
 }
 
-/* Custom inline video controls */
-const videoCard = document.querySelector("[data-video-card]");
-const video = videoCard?.querySelector("[data-video]");
-const toggleButton = videoCard?.querySelector("[data-video-toggle]");
+function initFaq() {
+  const entries = Array.from(document.querySelectorAll(".faq-item"))
+    .map((item) => ({
+      item,
+      summary: item.querySelector("summary"),
+      answer: item.querySelector(".faq-item__answer"),
+      // The native open flag stays true while closing, so track intent separately.
+      targetOpen: item.open,
+      heightAnimation: null,
+      answerAnimation: null,
+    }))
+    .filter(
+      ({ item, summary, answer }) =>
+        item instanceof HTMLDetailsElement &&
+        summary instanceof HTMLElement &&
+        answer instanceof HTMLElement,
+    );
 
-const stateLabels = {
+  function animateEntry(entry, shouldOpen) {
+    const { item, summary, answer } = entry;
+    // Capture the rendered height first so rapid toggles reverse without jumping.
+    const startHeight = item.getBoundingClientRect().height;
+
+    entry.heightAnimation?.cancel();
+    entry.answerAnimation?.cancel();
+    entry.targetOpen = shouldOpen;
+    item.style.removeProperty("height");
+
+    if (shouldOpen) item.open = true;
+
+    if (
+      reducedMotionQuery.matches ||
+      typeof item.animate !== "function"
+    ) {
+      item.open = shouldOpen;
+      delete item.dataset.faqAnimating;
+      entry.heightAnimation = null;
+      entry.answerAnimation = null;
+      return;
+    }
+
+    const endHeight =
+      summary.offsetHeight + (shouldOpen ? answer.offsetHeight : 0);
+
+    item.dataset.faqAnimating = "true";
+    item.style.height = `${startHeight}px`;
+
+    const heightAnimation = item.animate(
+      [
+        { height: `${startHeight}px` },
+        { height: `${endHeight}px` },
+      ],
+      {
+        duration: 260,
+        easing: "cubic-bezier(0.2, 0.7, 0.2, 1)",
+      },
+    );
+    const answerAnimation = answer.animate(
+      [
+        {
+          opacity: shouldOpen ? 0 : 1,
+          transform: shouldOpen
+            ? "translateY(-0.3rem)"
+            : "translateY(0)",
+        },
+        {
+          opacity: shouldOpen ? 1 : 0,
+          transform: shouldOpen
+            ? "translateY(0)"
+            : "translateY(-0.25rem)",
+        },
+      ],
+      {
+        duration: shouldOpen ? 220 : 170,
+        easing: "ease",
+        fill: "both",
+      },
+    );
+
+    entry.heightAnimation = heightAnimation;
+    entry.answerAnimation = answerAnimation;
+
+    heightAnimation.addEventListener(
+      "finish",
+      () => {
+        // Only the latest animation may commit state after a rapid reversal.
+        if (entry.heightAnimation !== heightAnimation) return;
+
+        item.open = shouldOpen;
+        item.style.removeProperty("height");
+        delete item.dataset.faqAnimating;
+        answerAnimation.cancel();
+        entry.heightAnimation = null;
+        entry.answerAnimation = null;
+      },
+      { once: true },
+    );
+  }
+
+  entries.forEach((entry) => {
+    entry.summary.addEventListener("click", (event) => {
+      event.preventDefault();
+
+      const shouldOpen = !entry.targetOpen;
+
+      if (shouldOpen) {
+        entries.forEach((otherEntry) => {
+          if (otherEntry !== entry && otherEntry.targetOpen) {
+            animateEntry(otherEntry, false);
+          }
+        });
+      }
+
+      animateEntry(entry, shouldOpen);
+    });
+  });
+}
+
+const VIDEO_LABELS = {
   initial: "Reproduzir vídeo do procedimento de harmonização facial",
   playing: "Pausar vídeo do procedimento de harmonização facial",
   paused: "Continuar vídeo pausado do procedimento de harmonização facial",
 };
 
-const isPlaying = (media) => !media.paused && !media.ended;
+function initVideo() {
+  const card = document.querySelector("[data-video-card]");
+  const video = card?.querySelector("[data-video]");
+  const toggleButton = card?.querySelector("[data-video-toggle]");
 
-const setVideoState = (state) => {
-  if (!videoCard || !toggleButton) return;
+  if (
+    !(card instanceof HTMLElement) ||
+    !(video instanceof HTMLVideoElement) ||
+    !(toggleButton instanceof HTMLButtonElement)
+  ) {
+    return null;
+  }
 
-  videoCard.dataset.videoState = state;
-  toggleButton.setAttribute("aria-label", stateLabels[state]);
-};
+  function isPlaying() {
+    return !video.paused && !video.ended;
+  }
 
-if (
-  video instanceof HTMLVideoElement &&
-  toggleButton instanceof HTMLButtonElement
-) {
+  function setState(state) {
+    card.dataset.videoState = state;
+    toggleButton.setAttribute("aria-label", VIDEO_LABELS[state]);
+  }
+
   toggleButton.addEventListener("click", async () => {
-    if (isPlaying(video)) {
+    if (isPlaying()) {
       video.pause();
       return;
     }
@@ -119,182 +232,203 @@ if (
     }
   });
 
-  /* The video becomes the pause target while the overlay is hidden. */
   video.addEventListener("click", () => {
-    if (isPlaying(video)) video.pause();
+    if (isPlaying()) video.pause();
   });
-
-  video.addEventListener("play", () => setVideoState("playing"));
-
+  video.addEventListener("play", () => setState("playing"));
   video.addEventListener("pause", () => {
-    if (!video.ended) {
-      setVideoState(video.currentTime > 0 ? "paused" : "initial");
-    }
+    if (!video.ended) setState(video.currentTime > 0 ? "paused" : "initial");
   });
-
-  /* Reloading restores the poster after playback finishes. */
   video.addEventListener("ended", () => {
     video.load();
-    setVideoState("initial");
+    setState("initial");
   });
+
+  return { card, video };
 }
 
-/* Shared image and video viewer */
-const viewer = document.querySelector("[data-media-viewer]");
-const viewerStage = viewer?.querySelector(".media-viewer__stage");
-const viewerImage = viewer?.querySelector("[data-media-viewer-image]");
-const viewerCaption = viewer?.querySelector("[data-media-viewer-caption]");
-const viewerCloseButton = viewer?.querySelector("[data-media-viewer-close]");
+function initMediaViewer(player) {
+  const viewer = document.querySelector("[data-media-viewer]");
+  const stage = viewer?.querySelector(".media-viewer__stage");
+  const image = viewer?.querySelector("[data-media-viewer-image]");
+  const caption = viewer?.querySelector("[data-media-viewer-caption]");
+  const closeButton = viewer?.querySelector("[data-media-viewer-close]");
 
-if (
-  viewer instanceof HTMLDialogElement &&
-  viewerStage instanceof HTMLElement &&
-  viewerImage instanceof HTMLImageElement &&
-  viewerCaption instanceof HTMLElement &&
-  viewerCloseButton instanceof HTMLButtonElement
-) {
-  let activeTrigger = null;
-  let restoreFocus = false;
-  let videoParent = null;
-  let videoNextSibling = null;
-  let videoPlaceholder = null;
+  if (
+    !(viewer instanceof HTMLDialogElement) ||
+    !(stage instanceof HTMLElement) ||
+    !(image instanceof HTMLImageElement) ||
+    !(caption instanceof HTMLElement) ||
+    !(closeButton instanceof HTMLButtonElement)
+  ) {
+    return;
+  }
 
-  const rememberTrigger = (trigger, event) => {
-    activeTrigger = trigger;
-    restoreFocus = event.detail === 0;
+  const state = {
+    trigger: null,
+    restoreFocus: false,
+    origin: null,
+    closeTimer: null,
+    closing: false,
   };
 
-  const openImage = (trigger, event) => {
-    if (viewer.open) return;
+  function rememberTrigger(trigger, event) {
+    state.trigger = trigger;
+    // Keyboard-generated clicks have detail 0 and require focus restoration.
+    state.restoreFocus = event.detail === 0;
+  }
 
-    const figure = trigger.closest("figure");
-    const sourceImage = figure?.querySelector(
-      ".practice-card__asset--photo, .result-card__image",
-    );
-
-    if (!(sourceImage instanceof HTMLImageElement)) return;
-
-    rememberTrigger(trigger, event);
-    viewer.dataset.mediaType = "image";
-    viewerImage.hidden = false;
-    viewerImage.src = sourceImage.src;
-    viewerImage.alt = sourceImage.alt;
-    viewerCaption.textContent =
-      figure.querySelector("figcaption h4")?.textContent?.trim() ||
-      "Imagem ampliada";
-
+  function showViewer() {
+    state.closing = false;
     viewer.showModal();
-  };
 
-  const openVideo = (trigger, event) => {
-    if (
-      viewer.open ||
-      !(videoCard instanceof HTMLElement) ||
-      !(video instanceof HTMLVideoElement)
-    ) {
+    if (reducedMotionQuery.matches) {
+      viewer.classList.add("is-visible");
+    } else {
+      // Let showModal() paint before the CSS opening transition begins.
+      requestAnimationFrame(() => viewer.classList.add("is-visible"));
+    }
+  }
+
+  function closeViewer(pauseVideo = true) {
+    if (!viewer.open || state.closing) return;
+
+    if (pauseVideo && viewer.dataset.mediaType === "video") {
+      player?.video.pause();
+    }
+
+    viewer.classList.remove("is-visible");
+
+    if (reducedMotionQuery.matches) {
+      viewer.close();
       return;
     }
 
-    /*
-     * Moving the existing player preserves playback time,
-     * volume and the current custom-control state.
-     */
-    rememberTrigger(trigger, event);
-    videoParent = videoCard.parentNode;
-    videoNextSibling = videoCard.nextSibling;
+    state.closing = true;
+    // Native close waits for the matching CSS exit transition.
+    state.closeTimer = window.setTimeout(() => viewer.close(), 220);
+  }
 
-    videoPlaceholder = document.createElement("div");
-    videoPlaceholder.className =
-      "practice-card__media practice-card__media--video";
-    videoPlaceholder.style.backgroundImage = `url("${video.poster}")`;
-    videoPlaceholder.style.backgroundPosition = "center";
-    videoPlaceholder.style.backgroundSize = "cover";
-    videoPlaceholder.setAttribute("aria-hidden", "true");
+  function openImage(trigger, event) {
+    if (viewer.open) return;
 
-    videoParent.insertBefore(videoPlaceholder, videoCard);
-
-    viewer.dataset.mediaType = "video";
-    viewerImage.hidden = true;
-
-    trigger.setAttribute(
-      "aria-label",
-      "Retornar vídeo ao tamanho normal",
+    const source = trigger.querySelector(
+      ".practice-card__asset--photo, .result-card__image",
     );
 
-    viewerStage.append(videoCard);
-    viewer.showModal();
-  };
+    if (!(source instanceof HTMLImageElement)) return;
+
+    rememberTrigger(trigger, event);
+    viewer.dataset.mediaType = "image";
+    image.hidden = false;
+    image.src = source.currentSrc || source.src;
+    image.alt = source.alt;
+    caption.textContent =
+      trigger
+        .closest("figure")
+        ?.querySelector("figcaption h4")
+        ?.textContent?.trim() ||
+      "Imagem ampliada";
+    showViewer();
+  }
+
+  function openVideo(trigger, event) {
+    if (viewer.open || !player || !player.card.parentNode) return;
+
+    rememberTrigger(trigger, event);
+
+    // Move the real player to preserve playback state and its exact return point.
+    const placeholder = document.createElement("div");
+    placeholder.className =
+      "practice-card__media practice-card__media--video";
+    Object.assign(placeholder.style, {
+      backgroundImage: `url("${player.video.poster}")`,
+      backgroundPosition: "center",
+      backgroundSize: "cover",
+    });
+    placeholder.setAttribute("aria-hidden", "true");
+
+    state.origin = {
+      parent: player.card.parentNode,
+      nextSibling: player.card.nextSibling,
+      placeholder,
+    };
+    state.origin.parent.insertBefore(placeholder, player.card);
+
+    viewer.dataset.mediaType = "video";
+    image.hidden = true;
+    trigger.setAttribute("aria-label", "Retornar vídeo ao tamanho normal");
+    stage.append(player.card);
+    showViewer();
+  }
+
+  function restoreVideo() {
+    if (!player || !state.origin) return;
+
+    const { parent, nextSibling, placeholder } = state.origin;
+    parent.insertBefore(
+      player.card,
+      nextSibling?.parentNode === parent ? nextSibling : null,
+    );
+    placeholder.remove();
+    player.card
+      .querySelector("[data-expand-video]")
+      ?.setAttribute(
+        "aria-label",
+        "Ampliar vídeo do procedimento de harmonização facial",
+      );
+  }
 
   document.addEventListener("click", (event) => {
     if (!(event.target instanceof Element)) return;
 
-    const imageTrigger = event.target.closest("[data-expand-image]");
-    const videoTrigger = event.target.closest("[data-expand-video]");
+    const trigger = event.target.closest(
+      "[data-expand-image], [data-expand-video]",
+    );
 
-    if (imageTrigger instanceof HTMLButtonElement) {
-      openImage(imageTrigger, event);
-      return;
-    }
+    if (!(trigger instanceof HTMLButtonElement)) return;
 
-    if (videoTrigger instanceof HTMLButtonElement) {
-      if (viewer.open && viewer.dataset.mediaType === "video") {
-        viewer.close();
-      } else {
-        openVideo(videoTrigger, event);
-      }
+    if (trigger.matches("[data-expand-image]")) {
+      openImage(trigger, event);
+    } else if (viewer.open) {
+      // Minimizing returns the player to its card without interrupting playback.
+      closeViewer(false);
+    } else {
+      openVideo(trigger, event);
     }
   });
 
-  viewerCloseButton.addEventListener("click", () => {
-    viewer.close();
+  closeButton.addEventListener("click", () => closeViewer());
+  viewer.addEventListener("cancel", (event) => {
+    event.preventDefault();
+    closeViewer();
   });
-
-  /* Native dialog handles Escape; this adds backdrop closing. */
   viewer.addEventListener("click", (event) => {
-    if (event.target === viewer) {
-      viewer.close();
-    }
+    if (event.target === viewer || event.target === stage) closeViewer();
   });
-
   viewer.addEventListener("close", () => {
-    if (
-      viewer.dataset.mediaType === "video" &&
-      videoCard instanceof HTMLElement &&
-      videoParent
-    ) {
-      /*
-       * Playback is intentionally preserved when the player returns
-       * to its original card.
-       */
-      if (videoNextSibling && videoNextSibling.parentNode === videoParent) {
-        videoParent.insertBefore(videoCard, videoNextSibling);
-      } else {
-        videoParent.append(videoCard);
-      }
+    if (state.closeTimer !== null) window.clearTimeout(state.closeTimer);
 
-      videoPlaceholder?.remove();
-
-      const videoExpandButton = videoCard.querySelector(
-        "[data-expand-video]",
-      );
-
-      videoExpandButton?.setAttribute(
-        "aria-label",
-        "Ampliar vídeo do procedimento de harmonização facial",
-      );
-    }
-
-    viewerImage.hidden = true;
+    restoreVideo();
+    image.hidden = true;
+    image.removeAttribute("src");
+    image.alt = "";
     viewer.dataset.mediaType = "";
+    viewer.classList.remove("is-visible");
 
-    if (activeTrigger) {
-      restoreFocus ? activeTrigger.focus() : activeTrigger.blur();
+    if (state.trigger) {
+      state.restoreFocus ? state.trigger.focus() : state.trigger.blur();
     }
 
-    activeTrigger = null;
-    restoreFocus = false;
-    videoParent = null;
-    videoNextSibling = null;
-    videoPlaceholder = null;
+    state.trigger = null;
+    state.restoreFocus = false;
+    state.origin = null;
+    state.closeTimer = null;
+    state.closing = false;
   });
 }
+
+initMenu();
+initBackToTop();
+initFaq();
+initMediaViewer(initVideo());

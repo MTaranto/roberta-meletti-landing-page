@@ -1,81 +1,85 @@
 # Roberta Meletti — Landing Page
 
-![Prévia desktop da landing page da Roberta Meletti](assets/images/screenshot/roberta-meletti-landing-page-readme-preview.webp)
+Landing page institucional desenvolvida para **Roberta Meletti — Estética Avançada**, com foco em apresentar seu trabalho, transmitir confiança e converter visitantes em contatos pelo WhatsApp.
 
-Landing page institucional e comercial desenvolvida para **Roberta Meletti — Estética Avançada**, com foco na apresentação profissional dos tratamentos, construção de confiança e conversão de visitantes em contatos pelo WhatsApp.
+**Site publicado:** [robertameletti.com.br](https://robertameletti.com.br/)
 
-**Status:** Online em produção
-
-**Site:** [robertameletti.com.br](https://robertameletti.com.br/)
+![Prévia da landing page da Roberta Meletti em desktop](assets/images/screenshot/roberta-meletti-landing-page-readme-preview.webp)
 
 ## Sobre o projeto
 
-Este é um projeto real, desenvolvido para apresentar o trabalho da Roberta com uma identidade visual sofisticada, acolhedora e coerente com sua atuação profissional.
+Este é um projeto real, criado a partir do levantamento de necessidades da cliente e de um escopo definido para uma página única, clara e responsiva.
 
-A página reúne tratamentos, credenciais, registros de procedimentos, resultados autorizados, depoimentos, dúvidas frequentes e informações de atendimento em uma experiência simples, responsiva e orientada à conversão.
+A solução reúne informações sobre tratamentos, perfil profissional, registros de procedimentos, resultados autorizados, depoimentos, dúvidas frequentes e locais de atendimento. A experiência foi orientada a uma ação principal: solicitar uma avaliação individual pelo WhatsApp.
+
+A arquitetura foi mantida propositalmente simples e adequada ao produto: HTML, CSS e JavaScript, sem framework, banco de dados ou etapa de build.
 
 ## Principais recursos
 
-- Layout responsivo para celular, tablet e desktop
-- Menu mobile com navegação por âncoras
+- Layout mobile-first adaptado para celular, tablet e desktop
+- Menu responsivo com navegação por âncoras
 - CTAs para WhatsApp com mensagens pré-preenchidas
-- Seções de tratamentos, perfil profissional, resultados e depoimentos
+- Apresentação de tratamentos, credenciais, resultados e depoimentos
 - FAQ interativo com abertura controlada
-- Visualizador de imagens em tela ampliada
-- Player de vídeo com controles personalizados
-- Minimização do vídeo sem perder o ponto de reprodução
+- Visualizador ampliado de imagens e vídeo
+- Controles personalizados de reprodução e expansão do vídeo
 - Botão de retorno ao topo
-- Navegação por teclado e recursos essenciais de acessibilidade
-- SEO básico e metadados para compartilhamento social
+- Navegação por teclado, foco visível e suporte a preferência por movimento reduzido
+- SEO essencial e metadados Open Graph para compartilhamento social
+- Imagens e vídeos otimizados para uso na web
+
+## Responsividade
+
+![Landing page apresentada em desktop, tablet e mobile](assets/images/screenshot/roberta-meletti-landing-page-readme-responsive.webp)
+
+A interface foi construída com abordagem mobile-first e ajustada para preservar hierarquia, legibilidade e identidade visual nos diferentes tamanhos de tela.
 
 ## Tecnologias
 
 - HTML5 semântico
-- CSS3
-- JavaScript (Vanilla)
+- CSS3 modularizado por responsabilidade
+- JavaScript Vanilla
 - Git e GitHub
 - Cloudflare Pages
 
-## Visão responsiva
+## Publicação
 
-![Composição responsiva da landing page em desktop, tablet e mobile](assets/images/screenshot/roberta-meletti-landing-page-readme-responsive.webp)
+O site está publicado no Cloudflare Pages com domínio próprio e HTTPS. As variantes com `http` e `www` são direcionadas para o endereço canônico:
 
-A interface foi desenvolvida com abordagem **mobile-first** e validada em celular, tablet e desktop.
+```text
+https://robertameletti.com.br/
+```
 
-## Destaques técnicos
+O domínio também utiliza DNSSEC para autenticação das respostas DNS.
 
-- CSS modularizado por responsabilidade
-- JavaScript organizado por comportamento
-- Componentes interativos com atributos ARIA
-- Imagens e vídeos otimizados para web
-- Open Graph com imagem social em 1200 × 630 px
-- Deploy automático a partir da branch `main`
-- Domínio próprio com HTTPS e DNSSEC
+## Processo de desenvolvimento
+
+O projeto foi conduzido desde o levantamento de requisitos e a definição do MVP até a implementação, validação funcional e publicação.
+
+O trabalho foi organizado em mudanças incrementais, branches, commits e pull requests. As verificações incluíram comportamento responsivo, navegação por teclado, links do WhatsApp, interações da interface, mídias e inspeção no navegador com DevTools.
+
+Ferramentas de IA apoiaram o planejamento, a implementação, a depuração e a documentação. O uso desse apoio foi combinado com controle de escopo, revisão de alterações e testes manuais no navegador.
 
 ## Executando localmente
 
-O projeto não exige instalação de dependências nem etapa de build.
+O projeto não requer instalação de dependências nem processo de build.
 
 ```bash
-git clone git@github.com:MTaranto/roberta-meletti-landing-page.git
+git clone https://github.com/MTaranto/roberta-meletti-landing-page.git
 cd roberta-meletti-landing-page
 ```
 
-Depois, abra o `index.html` com um servidor local. Durante o desenvolvimento, foi utilizada a extensão **Live Server** do Visual Studio Code.
+Depois, abra a pasta no Visual Studio Code e execute o `index.html` com a extensão **Live Server**.
 
-## Desenvolvimento assistido por IA
+## Evolução planejada
 
-Usei ferramentas de IA como apoio no planejamento, implementação, revisão, depuração e documentação do projeto.
-
-O uso de IA foi combinado com práticas tradicionais de desenvolvimento, incluindo Git, branches, commits, pull requests, revisão de diffs, testes manuais, DevTools e validação no navegador.
-
-## Próxima evolução
-
-A próxima etapa planejada é adicionar testes end-to-end com Cypress e integração contínua pelo GitHub Actions.
+Como etapa separada da entrega inicial, está planejada a inclusão de testes end-to-end com Cypress e execução automatizada pelo GitHub Actions.
 
 ## Autor
 
-**Márcio Taranto**
+**Márcio Taranto Nogueira**
+
+Responsável pelo levantamento de requisitos, definição do escopo, direção visual, condução do desenvolvimento, validação funcional e publicação.
 
 - [GitHub](https://github.com/MTaranto)
 - [LinkedIn](https://www.linkedin.com/in/mtaranto/)

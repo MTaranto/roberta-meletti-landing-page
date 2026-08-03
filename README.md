@@ -1,44 +1,81 @@
-# Roberta Meletti Landing Page
+# Roberta Meletti — Landing Page
 
-Landing page mobile-first desenvolvida para **Roberta Meletti — Estética Avançada**, com foco na apresentação dos tratamentos e na conversão de visitantes em conversas pelo WhatsApp.
+![Prévia desktop da landing page da Roberta Meletti](assets/images/screenshot/roberta-meletti-landing-page-readme-preview.webp)
 
-## Status
+Landing page institucional e comercial desenvolvida para **Roberta Meletti — Estética Avançada**, com foco na apresentação profissional dos tratamentos, construção de confiança e conversão de visitantes em contatos pelo WhatsApp.
 
-Em desenvolvimento.
+**Status:** Online em produção
 
-## Objetivo
+**Site:** [robertameletti.com.br](https://robertameletti.com.br/)
 
-Apresentar o trabalho da profissional de forma sofisticada, acolhedora e clara, conduzindo potenciais clientes à solicitação de uma avaliação individual.
+## Sobre o projeto
 
-## Escopo da versão 1
+Este é um projeto real, desenvolvido para apresentar o trabalho da Roberta com uma identidade visual sofisticada, acolhedora e coerente com sua atuação profissional.
 
-- Página única e responsiva
-- Apresentação dos tratamentos prioritários
-- Informações profissionais e credenciais
-- Resultados e depoimentos autorizados
-- Perguntas frequentes
-- Informações de atendimento e localização
-- Conversão principal pelo WhatsApp
-- SEO e acessibilidade essenciais
+A página reúne tratamentos, credenciais, registros de procedimentos, resultados autorizados, depoimentos, dúvidas frequentes e informações de atendimento em uma experiência simples, responsiva e orientada à conversão.
 
-## Fora do escopo
+## Principais recursos
 
-- Formulário
-- Agenda própria
-- Banco de dados
-- Painel administrativo
-- Login
-- Pagamento online
-- Analytics e pixels
-- CRM ou automações
+- Layout responsivo para celular, tablet e desktop
+- Menu mobile com navegação por âncoras
+- CTAs para WhatsApp com mensagens pré-preenchidas
+- Seções de tratamentos, perfil profissional, resultados e depoimentos
+- FAQ interativo com abertura controlada
+- Visualizador de imagens em tela ampliada
+- Player de vídeo com controles personalizados
+- Minimização do vídeo sem perder o ponto de reprodução
+- Botão de retorno ao topo
+- Navegação por teclado e recursos essenciais de acessibilidade
+- SEO básico e metadados para compartilhamento social
 
 ## Tecnologias
 
-- HTML semântico
-- CSS
-- JavaScript mínimo, somente quando necessário
+- HTML5 semântico
+- CSS3
+- JavaScript (Vanilla)
+- Git e GitHub
+- Cloudflare Pages
 
-## Responsável
+## Visão responsiva
 
-Márcio Taranto  
-Projeto desenvolvido com apoio de ferramentas de IA e validação funcional proporcional ao risco.
+![Composição responsiva da landing page em desktop, tablet e mobile](assets/images/screenshot/roberta-meletti-landing-page-readme-responsive.webp)
+
+A interface foi desenvolvida com abordagem **mobile-first** e validada em celular, tablet e desktop.
+
+## Destaques técnicos
+
+- CSS modularizado por responsabilidade
+- JavaScript organizado por comportamento
+- Componentes interativos com atributos ARIA
+- Imagens e vídeos otimizados para web
+- Open Graph com imagem social em 1200 × 630 px
+- Deploy automático a partir da branch `main`
+- Domínio próprio com HTTPS e DNSSEC
+
+## Executando localmente
+
+O projeto não exige instalação de dependências nem etapa de build.
+
+```bash
+git clone git@github.com:MTaranto/roberta-meletti-landing-page.git
+cd roberta-meletti-landing-page
+```
+
+Depois, abra o `index.html` com um servidor local. Durante o desenvolvimento, foi utilizada a extensão **Live Server** do Visual Studio Code.
+
+## Desenvolvimento assistido por IA
+
+Usei ferramentas de IA como apoio no planejamento, implementação, revisão, depuração e documentação do projeto.
+
+O uso de IA foi combinado com práticas tradicionais de desenvolvimento, incluindo Git, branches, commits, pull requests, revisão de diffs, testes manuais, DevTools e validação no navegador.
+
+## Próxima evolução
+
+A próxima etapa planejada é adicionar testes end-to-end com Cypress e integração contínua pelo GitHub Actions.
+
+## Autor
+
+**Márcio Taranto**
+
+- [GitHub](https://github.com/MTaranto)
+- [LinkedIn](https://www.linkedin.com/in/mtaranto/)
